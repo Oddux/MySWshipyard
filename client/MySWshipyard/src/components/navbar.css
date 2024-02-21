@@ -1,0 +1,51 @@
+.navheader {
+  background-color: #313030;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  height: 60px;
+  left: 0;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo {
+  height: 50px;
+  width: 50px;
+  margin: 5px 0;
+  padding: 0;
+  float: left;
+}
+
+.navbar-items {
+  margin-left: 20px;
+}
+
+.navbar-items ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-items ul li {
+  padding: 0 20px;
+}
+
+.navbar-items ul li a {
+  text-decoration: none;
+  color: yellow;
+  font-size: 20px;
+}
+
+.navbar-items ul li a:hover {
+  border: white;
+}
+
+.navbar-items ul li a:active {
+  color: white;
+}

@@ -1,0 +1,53 @@
+.pilotForm {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #313030;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 #000;
+    color: yellow;
+    text-align: center;
+}
+
+.form-control label,
+.form-control input{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+}
+
+.form-control {
+    margin-bottom: 20px;
+}
+
+.form-control label {
+    margin-bottom: 20px;
+}
+
+.form-control input[type="submit"] {
+    background-color: #f9f9f9;
+    color: #313030;
+    cursor: pointer;
+    transition: background-color 0.25s;
+    border: 1px solid transparent;
+    padding: 2px 10px;
+    margin-right: 5px;
+    box-shadow: 0 0 10px 0 #000;
+}
+
+.form-control input[type="submit"]:hover {
+    background-color: #313030;
+    color: #f9f9f9;
+}
+
+.form-control input[type="submit"]:focus,
+.form-control input[type="submit"]:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+}
+
+.form-control input[type="submit"]:active {
+    background-color: #f9f9f9;
+    color: #313030;
+}
