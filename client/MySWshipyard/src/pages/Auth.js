@@ -1,63 +1,94 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import Modal from 'react-modal';
+import Modal, { contextType } from 'react-modal';
 import './Auth.css';
 
 Modal.setAppElement('#root');
 
+const AuthContext = React.createContext();
+
 function AuthModal() {
-    constructor(props) {
-        super(props);
-        this.nameEl = React.createRef();
-        this.emailEl = React.createRef();
-        this.passwordEl = React.createRef();
-        this.affiliationEl = React.createRef();
-    }
-
-    submitHandler = event => {
-        event.preventDefault();
-        const name = this.nameEl.current.value;
-        const email = this.emailEl.current.value;
-        const password = this.passwordEl.current.value;
-        const affiliation = this.affiliationEl.current.value;
-        if (name.trim().length === 0 || email.trim().length === 0 || password.trim().length === 0) {
-            return;
-        }
-        fetch('http://localhost:8000/graphql', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                query: `
-                    mutation {
-                        createPilot(pilotInput: {name: "${name}", email: "${email}", password: "${password}", affiliation: "${affiliation}"}) {
-                            _id
-                            name
-                            affiliation
-                            email
-                        }
-                    }
-                `
-            })
-        })
-    };
-
   let subtitle;
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
+  const nameEl = useRef();
+  const emailEl = useRef();
+  const passwordEl = useRef();
+  const affiliationEl = useRef();
+
+  state={isLogin: true};
+  
+  switchModeHandler = () => {
+    this.setState(prevState => {
+        return {isLogin: !prevState.isLogin};
+    });
+  };
+
+  submitHandler = event => {
+    event.preventDefault();
+    const name = this.nameEl.current.value;
+    const email = this.emailEl.current.value;
+    const password = this.passwordEl.current.value;
+    const affiliation = this.affiliationEl.current.value;
+    if (name.trim().length === 0 || email.trim().length === 0 || password.trim().length === 0) {
+        return;
+    }
+    if (this.state.isLogin) {
+      let requestBody = {
+          query: `
+              query {
+                  login(email: "${email}", password: "${password}") {
+                      pilotId
+                      token
+                      tokenExpiration
+                  }
+              }
+          `
+        };
+    } else {
+      const requestBody = {
+          query: `
+              mutation {
+                  createPilot(pilotInput: {email: "${email}", password: "${password}", name: "${name}", affiliation: "${affiliation}"}) {
+                      _id
+                      email
+                  }
+              }
+          `
+      };
+    fetch('http://localhost:8000/graphql', {
+        method: 'POST',
+        body: JSON.stringify(requestBody),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => {
+        if (res.status !== 200 && res.status !== 201) {
+            throw new Error('Failed!');
+        }
+        return res.json();
+    })
+    .then(resData => {
+        console.log(resData);
+    })
+    .catch(err => {
+        console.log(err);
+    });
+  };
+    
   function openModal() {
     setIsOpen(true);
-  }
+  };
 
   function afterOpenModal() {
-    // references are now sync'd and can be accessed.
     subtitle.style.color = '#f00';
-  }
+  };
 
   function closeModal() {
     setIsOpen(false);
-  }
+  };
 
   return (
     <div>
@@ -97,17 +128,14 @@ function AuthModal() {
                 <label htmlFor="password">Password</label>
                 <input type = "password" id="password" ref={this.passwordEl} />
             </div>
-          <button type="button">Switch to Signup</button>
+          <button type="button" onClick={this.switchModeHandler}>Switch to {this.state.isLogin ? 'Signup' : 'Login'} </button>
           <button type="submit">Submit</button>
         </form>
       </Modal>
     </div>
   );
-};
+}};
 
 ReactDOM.render(<App />, appElement);
-
-
-
 
 export default AuthPage;
