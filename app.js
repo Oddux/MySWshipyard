@@ -1,16 +1,19 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const graphqlHttp = require('express-graphql');
-const { buildSchema } = require('graphql');
+require("dotenv").config();
+const express = require("express");
+const bodyParser = require("body-parser");
+const { buildSchema } = require("graphql");
+const graphqlHTTP = require('express-graphql').graphqlHTTP;
+const mongoose = require("mongoose");
+const Ship = require("./models/ship");
+
 
 const app = express();
 
-const ships = [];
-
-
 app.use(bodyParser.json());
 
-app.use('/graphql', graphqlHttp({
+app.use(
+  "/graphql",
+  graphqlHTTP({
     schema: buildSchema(`
         type Ship {
             _id: ID!
@@ -53,28 +56,38 @@ app.use('/graphql', graphqlHttp({
             query: RootQuery
             mutation: RootMutation
         }`),
-    rootValue: 
-    {
-        ships: () => {
-            return [ships];
-        },
-        createShip: (args) => {
-            const ship = {
-                _id: Math.random().toString(),
-                model: args.model,
-                manufacturer: args.manufacturer,
-                length: args.length,
-                max_atmosphering_speed: args.max_atmosphering_speed,
-                crew: args.crew,
-                passengers: args.passengers,
-                cargo_capacity: args.cargo_capacity,
-                consumables: args.consumables,
-                hyperdrive_rating: args.hyperdrive_rating,
-                MGLT: args.MGLT,
-                starship_class: args.starship_class
-            };
-            ships.push(ship);
-        }
+    rootValue: {
+      ships: () => {
+        return [ships];
+      },
+      createShip: (args) => {
+        const ship = new Ship({
+          model: args.shipInput.model,
+          manufacturer: args.shipInput.manufacturer,
+          length: args.shipInput.length,
+          max_atmosphering_speed: args.shipInput.max_atmosphering_speed,
+          crew: args.shipInput.crew,
+          passengers: args.shipInput.passengers,
+          cargo_capacity: args.shipInput.cargo_capacity,
+          consumables: args.shipInput.consumables,
+          hyperdrive_rating: args.shipInput.hyperdrive_rating,
+          MGLT: args.shipInput.MGLT,
+          starship_class: args.shipInput.starship_class,
+        });
+        return ship;
+      },
     },
-    graphiql: true
-}));
+    graphiql: true,
+  })
+);
+
+mongoose
+    .connect(
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.agniuxh.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
+    )
+    .then(() => {
+    app.listen(3000);
+    })
+    .catch((err) => {
+    console.log(err);
+    });
