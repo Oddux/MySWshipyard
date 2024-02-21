@@ -7,7 +7,7 @@ import AuthContext from './utils/auth-context.js'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthContext.Provider value={{ token: null, login: (token) => {}, logout: () => {} }} />
+    <AuthContext.Provider value={{ token: null, login: (token) => {}, logout: () => {this.setState({token: null, pilotId: null})} }} />
     <navbar />
     <App />
     <AuthContext.Provider />
