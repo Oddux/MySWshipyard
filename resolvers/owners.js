@@ -5,7 +5,10 @@ const { OwnerInput } = require("../models/owners.js");
 
 
 module.exports = {
-    ownedShips: (args) => {
+    ownedShips: (args, req) => {
+        if (!req.isAuth) {
+          throw new Error("Unauthenticated!");
+        }
       return Owner.find({ pilot: args.pilotId })
         .then((ownedShips) => {
           return ownedShips.map((ownedShip) => {
@@ -16,7 +19,10 @@ module.exports = {
           throw err;
         });
     },
-    takeOwnership: async (args) => {
+    takeOwnership: async (args, req) => {
+        if (!req.isAuth) {
+          throw new Error("Unauthenticated!");
+        }
       const fetchedShip = await Ship.findOne({ _id: args.shipId });
       const owner = new Owner({
         pilot: "5f4a5f6c7e0b7b3c0c4c7d0e",
@@ -40,7 +46,10 @@ module.exports = {
           throw err;
         });
     },
-    releaseOwnership: async (args) => {
+    releaseOwnership: async (args, req) => {
+        if (!req.isAuth) {
+          throw new Error("Unauthenticated!");
+        }
       return Owner.findByIdAndRemove(args.shipId)
         .then((result) => {
           return { ...result._doc, _id: result.id };

@@ -1,4 +1,6 @@
-
+const pilotResolver = require('./pilot');
+const shipResolver = require('./ship');
+const ownerResolver = require('./owner');
 
 const owner = (ownerId) => {
     return Owner.findById(ownerId)
@@ -43,9 +45,16 @@ const ships = (shipIds) => {
 };
 
 
+const rootResolver = {
+    ...pilotResolver,
+    ...shipResolver,
+    ...ownerResolver
+};
+
 
 exports.ship = ship;
 exports.pilot = pilot;
 exports.owner = owner;
 exports.ships = ships;
 
+module.exports = rootResolver;

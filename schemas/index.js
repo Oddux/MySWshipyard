@@ -1,6 +1,12 @@
 const buildSchema = require('graphql').buildSchema;
 
 module.exports = buildSchema(`
+type AuthData {
+    pilotId: ID!
+    token: String!
+    tokenExpiration: Int!
+}
+
 type ownedShips {
     shipName: String!
     shipId: ID!
@@ -54,7 +60,8 @@ input ShipInput {
 
 type RootQuery {
     ships: [Ship!]!  
-    myShips: [ownedShips!]         
+    myShips: [ownedShips!]
+    login(email: String!, password: String!): AuthData!     
 }
 
 type RootMutation {

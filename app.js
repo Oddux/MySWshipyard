@@ -6,17 +6,19 @@ const mongoose = require("mongoose");
 
 const graphQlSchema = require("./schemas/index.js");
 const graphQlResolvers = require("./resolvers/index.js");
+const isAuth = require("./middleware/is-auth.js");
 
 const app = express();
 
 app.use(bodyParser.json());
+
+app.use(isAuth);
 
 app.use(
   "/graphql",
   graphqlHTTP({
     schema: graphQlSchema,
     rootValue: graphQlResolvers,
-    graphiql: true,
   })
 );
 
