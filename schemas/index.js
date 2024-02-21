@@ -1,6 +1,11 @@
 const buildSchema = require('graphql').buildSchema;
 
 module.exports = buildSchema(`
+type ownedShips {
+    shipName: String!
+    shipId: ID!
+}
+
 type Ship {
     _id: ID!
     model: String!
@@ -20,7 +25,7 @@ type Pilot {
     _id: ID!
     name: String!
     affiliation: String!
-    ownedShips: [Ship!]
+    myShips: [ownedShips!]
     email: String!
     password: String
 }
@@ -28,7 +33,7 @@ type Pilot {
 input PilotInput {
     name: String!
     affiliation: String!
-    ownedShips: [Ship!]
+    myShips: [ownedShips!]
     email: String!
     password: String!
 }
@@ -48,12 +53,15 @@ input ShipInput {
 }
 
 type RootQuery {
-    ships: [Ship!]!            
+    ships: [Ship!]!  
+    myShips: [ownedShips!]         
 }
 
 type RootMutation {
     createShip(shipInput: ShipInput): Ship
     createPilot(pilotInput: PilotInput): Pilot
+    takeOwnership(shipId: ID!): ownedShips
+    releaseOwnership(shipId: ID!): ownedShips
 }
 
 schema {
