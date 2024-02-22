@@ -5,7 +5,7 @@ import './index.css'
 import mainNavigation from './components/navbar.jsx'
 import AuthContext from './utils/auth-context.js'
 import { ApolloProvider } from '@apollo/client'
-import { apolloClient } from '../../SWapi/connection.js'
+import { apolloClient } from '../../server/SWapi/connection.js'
 import { BrowserRouter } from 'react-router-dom'
 
 class App extends Component {
