@@ -12,6 +12,8 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.get('*', function(req, res) {res.sendFile(path.join(__dirname + '/client/index.html')); });
+
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
