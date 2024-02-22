@@ -20,7 +20,7 @@ While logged in, browse your favorite ships and add them to your collection with
 
 ## Deployed Site
 
-Coming soon, whenever I fix this buggy routing *&^@ *@!$#@$% with the auth provider.
+[Deployed site](https://myswshipyard.onrender.com)
 
 ## Repository
 [Repository](https://github.com/Oddux/SWshipyard)

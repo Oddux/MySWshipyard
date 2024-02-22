@@ -30,14 +30,11 @@ app.use(isAuth);
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.agniuxh.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.agniuxh.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
   )
   .then(() => {
     app.listen(8000);
   })
-  .catch((err) => {
-    console.log(err);
-  });
 
 app.use(
   "/graphql",
@@ -51,4 +48,11 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/client/index.html'));
 });
 
-module.exports = mongoose.connection;
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB Atlas cluster');
+});
+
+module.exports = db;
