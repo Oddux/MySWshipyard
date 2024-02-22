@@ -1,5 +1,4 @@
 import { ApolloClient, InMemoryCache, gql, useQuery, ApolloProvider} from '@apollo/client';
-import seeds from './seeds.js';
 
 const apolloClient = new ApolloClient({
     uri: 'https://swapi-graphql.netlify.app/.netlify/functions/index',

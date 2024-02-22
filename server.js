@@ -1,3 +1,4 @@
+const path = require('path');
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -32,7 +33,7 @@ mongoose
     `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.agniuxh.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
   )
   .then(() => {
-    app.listen(3000);
+    app.listen(8000);
   })
   .catch((err) => {
     console.log(err);
@@ -45,5 +46,9 @@ app.use(
     rootValue: graphQlResolvers,
   })
 );
+
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname + '/client/index.html'));
+});
 
 module.exports = mongoose.connection;

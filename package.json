@@ -2,9 +2,9 @@
   "name": "myswshipyard",
   "version": "1.0.0",
   "description": "React/GraphQL app for viewing and saving ships",
-  "main": "app.js",
+  "main": "/index.html",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
