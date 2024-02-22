@@ -49,4 +49,4 @@ const shipSchema = new Schema({
     },
 });
 
-    mongoose.model("Ship", shipSchema);
+mongoose.model("Ship", shipSchema);

@@ -2,10 +2,10 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const graphqlHTTP = require("express-graphql").graphqlHTTP;
-
+const mongoose = require('mongoose');
 const graphQlSchema = require("./schemas/index.js");
 const graphQlResolvers = require("./resolvers/index.js");
-const isAuth = require("./utils/auth.js");
+const isAuth = require("./utils/is-auth.js");
 
 const app = express();
 
@@ -27,6 +27,17 @@ app.use((req, res, next) => {
 
 app.use(isAuth);
 
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.agniuxh.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
+  )
+  .then(() => {
+    app.listen(3000);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 app.use(
   "/graphql",
   graphqlHTTP({
@@ -35,4 +46,4 @@ app.use(
   })
 );
 
-
+module.exports = mongoose.connection;

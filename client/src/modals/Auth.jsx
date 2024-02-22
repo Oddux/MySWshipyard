@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 import Modal, { contextType } from 'react-modal';
 import './Auth.css';
 import AuthContext from '../utils/auth-context.js';
