@@ -2,6 +2,18 @@ const Owner = require("../models/owners.js");
 const Ship = require("../models/ships.js");
 
 module.exports = {
+  owners: () => {
+    return Owner.find()
+      .then((owners) => {
+        return owners.map((owner) => {
+          return { ...owner._doc, _id: owner.id };
+        });
+      })
+      .catch((err) => {
+        throw err;
+      });
+  },
+
   ownedShips: (args, req) => {
       if (!req.isAuth) {
         throw new Error("Unauthenticated!");
@@ -16,6 +28,7 @@ module.exports = {
         throw err;
       });
   },
+
   buyShip: async (args, req) => {
       if (!req.isAuth) {
         throw new Error("Unauthenticated!");
@@ -43,6 +56,7 @@ module.exports = {
         throw err;
       });
   },
+  
   sellShip: async (args, req) => {
       if (!req.isAuth) {
         throw new Error("Unauthenticated!");

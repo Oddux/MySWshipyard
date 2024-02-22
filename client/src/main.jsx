@@ -1,19 +1,7 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import Container from './components/container.jsx'
-import './index.css'
-import navbar from './components/navbar.jsx'
-import AuthContext from './utils/auth-context.js'
-import { ApolloProvider } from '@apollo/client'
-import { apolloClient } from '../../api/connection.js'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <ApolloProvider client={apolloClient} />  
-      <AuthContext.Provider value={{ token: null, login: (token) => {}, logout: () => {this.setState({token: null, pilotId: null})} }} />
-        <navbar />
-        <Container />
-      <AuthContext.Provider />
-    <ApolloProvider />
-  </React.StrictMode>,
-)
+import './index.css';
+import App from './App';
+
+ReactDOM.render(<App />, document.getElementById('root'));

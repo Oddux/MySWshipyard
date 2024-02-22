@@ -29,6 +29,7 @@ module.exports = {
           throw err;
         });
     },
+    
   login: async ({ email, password }) => {
       const pilot = await Pilot.findOne({ email: email });
       if (!pilot) {

@@ -1,6 +1,18 @@
 const Ship = require("../models/ships.js");
 
 module.exports ={
+    ships: () => {
+        return Ship.find()
+        .then((ships) => {
+            return ships.map((ship) => {
+                return { ...ship._doc, _id: ship.id };
+            });
+        })
+        .catch((err) => {
+            throw err;
+        });
+    },
+
     createShip: (args) => {
         const ship = new Ship({
         model: args.shipInput.model,

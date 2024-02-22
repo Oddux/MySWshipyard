@@ -6,11 +6,10 @@ import AuthContext from '../utils/auth-context.js';
 
 Modal.setAppElement('#root');
 
-
 function AuthModal() {
   let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
+  state = {isLogin: true};
   
   switchModeHandler = () => {
     this.setState(prevState => {
@@ -27,20 +26,24 @@ function AuthModal() {
     if (name.trim().length === 0 || email.trim().length === 0 || password.trim().length === 0) {
         return;
     }
-    if (this.state.isLogin) {
-      let requestBody = {
-          query: `
-              query {
-                  login(email: "${email}", password: "${password}") {
-                      pilotId
-                      token
-                      tokenExpiration
-                  }
-              }
-          `
-        };
-    } else {
-      const requestBody = {
+    let requestBody = {
+        query: `
+            query {
+                login(email: "${email}", password: "${password}") {
+                    pilotId
+                    token
+                    tokenExpiration
+                }
+            }
+        `,
+        variables: {
+            email: email,
+            password: password
+        } 
+      };
+   
+    if (!this.state.isLogin) {
+      requestBody = {
           query: `
               mutation {
                   createPilot(pilotInput: {email: "${email}", password: "${password}", name: "${name}", affiliation: "${affiliation}"}) {
@@ -50,6 +53,8 @@ function AuthModal() {
               }
           `
       };
+    }
+
     fetch('http://localhost:8000/graphql', {
         method: 'POST',
         body: JSON.stringify(requestBody),
@@ -127,8 +132,6 @@ function AuthModal() {
       </Modal>
     </div>
   );
-}};
-
-ReactDOM.render(<App />, appElement);
+};
 
 export default AuthModal;
