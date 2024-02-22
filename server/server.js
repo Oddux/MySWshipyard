@@ -44,8 +44,9 @@ app.use(
   })
 );
 
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname + '/client/index.html'));
+app.get('*', function (req, res) {
+  const index = path.join(__dirname, 'client', 'index.html');
+  res.sendFile(index);
 });
 
 
