@@ -32,4 +32,4 @@ const getAllShips = gql`
 
 export { ApolloProvider };    
 export { apolloClient };
-export default useAllShips;
+export { useAllShips };
