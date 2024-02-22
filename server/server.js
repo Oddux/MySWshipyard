@@ -44,10 +44,6 @@ app.use(
   })
 );
 
-app.get('*', function (req, res) {
-  const index = path.join(__dirname, 'client', 'index.html');
-  res.sendFile(index);
-});
 
 
 const db = mongoose.connection;
