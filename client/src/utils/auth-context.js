@@ -5,3 +5,5 @@ export default React.createContext({
     login: (token) => {},
     logout: () => {},
 });
+
+// Path: client/src/utils/auth-context.js

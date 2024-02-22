@@ -46,7 +46,7 @@ const shipSchema = new Schema({
     starship_class: {
         type: String,
         required: true
-    }
-    });
+    },
+});
 
     mongoose.model("Ship", shipSchema);

@@ -1,0 +1,24 @@
+.modal {
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 500px;
+    overflow: auto;
+    background-color: black;
+}
+
+.card-header {
+    background-color: #242424;
+    color: yellow;
+    padding: 2px 16px;
+}
+
+@media (min-width: 768px) {
+    .modal {
+        width: 90%;
+        left: 5%;
+    }
+}
