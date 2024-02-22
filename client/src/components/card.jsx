@@ -1,4 +1,5 @@
-import '../styles/Card.css';
+import React from 'react';
+import './card.css';
 
 const Card = (props) => {
     const { ship } = props;
@@ -6,8 +7,9 @@ const Card = (props) => {
         this.setState(prevState => {
             return {isOwned: !prevState.isOwned};
         })
+        
         if (!this.state.isOwned) {    
-            let requestBody = {
+             requestBody = {
                 query: `
                     mutation {
                         buyShip(shipId: "${ship.id}") {
@@ -19,8 +21,9 @@ const Card = (props) => {
                     }
                 `
             };
+
         } else {
-            const requestBody = {
+             requestBody = {
                 query: `
                     mutation {
                         sellShip(shipId: "${ship.id}") {
@@ -33,15 +36,14 @@ const Card = (props) => {
                 `
             };
         }
-      fetch('http://localhost:8000/graphql', {
+
+        fetch('http://localhost:8000/graphql', {
           method: 'POST',
           body: JSON.stringify(requestBody),
           headers: {
               'Content-Type': 'application/json'
           }
-      })
-        
-      };
+   })};
 
     return (
         <div className="card">

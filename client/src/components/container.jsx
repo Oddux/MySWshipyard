@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './card.jsx';
 import { useAllShips } from '../../../server/SWapi/connection.js';
+import './container.css';
 
 function Container() {
     const { loading, error, data } = useAllShips();
