@@ -4,8 +4,7 @@
   "description": "React/GraphQL app for viewing and saving ships",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "watch": "nodemon app.js"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",

@@ -1,8 +1,5 @@
 const Owner = require("../models/owners.js");
 const Ship = require("../models/ships.js");
-const { ship, pilot } = require("./index.js");
-const { OwnerInput } = require("../models/owners.js");
-
 
 module.exports = {
   ownedShips: (args, req) => {
@@ -25,7 +22,7 @@ module.exports = {
       }
     const fetchedShip = await Ship.findOne({ _id: args.shipId });
     const owner = new Owner({
-      pilot: "5f4a5f6c7e0b7b3c0c4c7d0e",
+      pilot: req.pilotId,
       ownedShips: [
         {
           shipId: fetchedShip._id,

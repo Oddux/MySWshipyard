@@ -1,28 +1,33 @@
-const pilotResolver = require('./pilot');
-const shipResolver = require('./ship');
-const ownerResolver = require('./owner');
+const pilotResolver = require('./pilots');
+const shipResolver = require('./ships');
+const ownerResolver = require('./owners');
+
+const pilot = (pilotId) => {
+  return Pilot.findById(pilotId)
+    .then((pilot) => {
+      return { ...pilot._doc, _id: pilot.id };
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
 
 const owner = (ownerId) => {
     return Owner.findById(ownerId)
       .then((owner) => {
-        return { ...owner._doc, _id: owner.id };
+        return {
+          ...owner._doc,
+          _id: owner.id,
+          pilot: pilot.bind(this, owner._doc.pilot),
+          ownedShips: ships.bind(this, owner._doc.ownedShips),
+        };
       })
       .catch((err) => {
         throw err;
       });
-};
+}
 
-const pilot = (pilotId) => {
-    return Pilot.findById(pilotId)
-      .then((pilot) => {
-        return { ...pilot._doc, _id: pilot.id };
-      })
-      .catch((err) => {
-        throw err;
-      });
-  };
-
-  const ship = (shipId) => {
+const ship = (shipId) => {
     return Ship.findById(shipId)
       .then((ship) => {
         return { ...ship._doc, _id: ship.id };
@@ -50,11 +55,4 @@ const rootResolver = {
     ...shipResolver,
     ...ownerResolver
 };
-
-
-exports.ship = ship;
-exports.pilot = pilot;
-exports.owner = owner;
-exports.ships = ships;
-
 module.exports = rootResolver;

@@ -2,11 +2,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const Pilot = require("../models/pilots.js");
-const Ship = require("../models/ships.js");
-const { ship, owner } = require("./index.js");
-const { PilotInput } = require("../models/pilots.js");
-
-
 
 module.exports = {
   createPilot: (args) => {

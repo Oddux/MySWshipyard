@@ -1,7 +1,4 @@
 const Ship = require("../models/ships.js");
-const { ship } = require("./index.js");
-const { ShipInput } = require("../models/ships.js");
-const { shipIds } = require("./index.js");
 
 module.exports ={
     createShip: (args) => {
