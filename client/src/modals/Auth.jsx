@@ -6,19 +6,11 @@ import AuthContext from '../utils/auth-context.js';
 
 Modal.setAppElement('#root');
 
-const AuthContext = React.createContext();
 
 function AuthModal() {
   let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
-
-  const nameEl = useRef();
-  const emailEl = useRef();
-  const passwordEl = useRef();
-  const affiliationEl = useRef();
-
-  state={isLogin: true};
   
   switchModeHandler = () => {
     this.setState(prevState => {
@@ -139,4 +131,4 @@ function AuthModal() {
 
 ReactDOM.render(<App />, appElement);
 
-export default AuthPage;
+export default AuthModal;

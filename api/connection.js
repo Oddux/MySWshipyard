@@ -31,14 +31,6 @@ const getAllShips = gql`
         }
     }`;
 
-function seedAllShips() {
-    const { loading, error, data } = useAllShips();
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
-    console.log(data);
-    const { allStarships } = data;
-    
-
 export { ApolloProvider };    
 export { apolloClient };
 export default useAllShips;

@@ -1,3 +1,28 @@
+.modal {
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 500px;
+    overflow: auto;
+    background-color: #242424;
+}
+
+.card-header {
+    background-color: black;
+    color: yellow;
+    padding: 2px 16px;
+}
+
+@media (min-width: 768px) {
+    .modal {
+        width: 90%;
+        left: 5%;
+    }
+}
+
 .pilotForm {
     width: 300px;
     margin: 0 auto;

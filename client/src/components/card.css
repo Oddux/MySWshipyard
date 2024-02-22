@@ -1,0 +1,22 @@
+.card {
+    border: solid 1px yellow;
+    border-radius: 8px;
+    padding: 1.6em;
+    margin: 1.6em;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+    background-color: #7a7676;
+    text-align: center;
+    height: 420px;
+    width: 300px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+h3 {
+    font-size: 1.6em;
+    color: yellow;
+}

@@ -67,8 +67,8 @@ type RootQuery {
 type RootMutation {
     createShip(shipInput: ShipInput): Ship
     createPilot(pilotInput: PilotInput): Pilot
-    takeOwnership(shipId: ID!): ownedShips
-    releaseOwnership(shipId: ID!): ownedShips
+    buyShip(shipId: ID!): ownedShips
+    sellShip(shipId: ID!): ownedShips
 }
 
 schema {

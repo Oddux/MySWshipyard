@@ -2,6 +2,47 @@ import '../styles/Card.css';
 
 const Card = (props) => {
     const { ship } = props;
+    switchModeHandler = () => {
+        this.setState(prevState => {
+            return {isOwned: !prevState.isOwned};
+        })
+        if (!this.state.isOwned) {    
+            let requestBody = {
+                query: `
+                    mutation {
+                        buyShip(shipId: "${ship.id}") {
+                            pilotId
+                            ownedShips {
+                                shipId
+                            }
+                        }
+                    }
+                `
+            };
+        } else {
+            const requestBody = {
+                query: `
+                    mutation {
+                        sellShip(shipId: "${ship.id}") {
+                            pilotId
+                            ownedShips {
+                                shipId
+                            }
+                        }
+                    }
+                `
+            };
+        }
+      fetch('http://localhost:8000/graphql', {
+          method: 'POST',
+          body: JSON.stringify(requestBody),
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      })
+        
+      };
+
     return (
         <div className="card">
             <h3>{ship.model}</h3>
@@ -17,6 +58,9 @@ const Card = (props) => {
                 <li>Cargo Capacity: {ship.cargoCapacity}</li>
                 <li>Total Length: {ship.length} meters</li>
             </ul>
+            <div className="card-footer">
+                <button type="button" onClick={this.switchModeHandler}>{this.state.isOwned ? 'Buy Ship' : 'Sell Ship'} </button>
+            </div>
         </div>
     );
 };

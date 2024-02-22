@@ -29,6 +29,10 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  color: yellow;
 }
 
 button {

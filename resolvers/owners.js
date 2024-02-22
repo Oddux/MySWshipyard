@@ -19,7 +19,7 @@ module.exports = {
         throw err;
       });
   },
-  takeOwnership: async (args, req) => {
+  buyShip: async (args, req) => {
       if (!req.isAuth) {
         throw new Error("Unauthenticated!");
       }
@@ -46,7 +46,7 @@ module.exports = {
         throw err;
       });
   },
-  releaseOwnership: async (args, req) => {
+  sellShip: async (args, req) => {
       if (!req.isAuth) {
         throw new Error("Unauthenticated!");
       }
