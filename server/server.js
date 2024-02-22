@@ -48,6 +48,7 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/client/index.html'));
 });
 
+
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
